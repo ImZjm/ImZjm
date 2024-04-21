@@ -1,0 +1,64 @@
+body{
+    background-color: #eee;
+}
+[data-theme='dark'] body{
+    background-color: #0d0d0d;
+}
+
+/* 卡片方角 */
+.card-widget, .recent-post-item, #post{
+    border-radius: unset !important;
+}
+
+/* 头像圆角 */
+.avatar-img{
+    border-radius: unset;
+    margin-top: 20px;
+}
+
+/* 头像旋转 */
+.avatar-img > img{
+    transition: unset;
+}
+
+/* 导航栏颜色固定 */
+#nav{
+    background-color: white !important;
+}
+[data-theme='dark'] #nav{
+    background-color: black !important;
+}
+
+/* 文章区域占用宽度 */
+.layout > div:first-child {
+    width: 90%;
+}
+
+/* 始终显示右下角的工具 */
+#rightside{
+    opacity: 0.8;
+    transform: translate(-58px, 0);
+}
+
+/* 文章标题修饰 */
+.article-title, .post-title{
+    border-left: #3f5973 8px solid;
+    padding-left: 10px;
+}
+
+.article-title:hover{
+    border-left: #357ba9 8px solid;
+}
+
+/* footer文字 */
+#footer-wrap, #footer-wrap a{
+    color: unset;
+    padding-bottom: 10px;
+}
+
+/* 公告别摇了 */
+.card-announcement .fa-shake{
+    -webkit-animation-name: unset;
+    animation-name: unset;
+    color: #00ff00 !important;
+}
