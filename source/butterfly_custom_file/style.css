@@ -32,6 +32,7 @@ body{
 /* 文章区域占用宽度 */
 .layout > div:first-child {
     width: 90%;
+    max-width: 888px;
 }
 
 /* 始终显示右下角的工具 */
