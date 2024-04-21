@@ -102,3 +102,8 @@ theme: butterfly
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
   type: ''
+
+feed:
+  enable: true
+  type: atom
+  icon: images/logo.png
