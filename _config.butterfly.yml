@@ -140,7 +140,7 @@ copy:
   enable: true
   copyright:
     enable: true
-    limit_count: 50
+    limit_count: 1000
 
 # Post
 # --------------------------------------
