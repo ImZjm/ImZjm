@@ -1,0 +1,402 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Qexo部署到服务器 | birdin.top</title><meta name="author" content="恨别鸟惊心"><meta name="copyright" content="恨别鸟惊心"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Qexo 一个美观、强大的在线 静态博客 管理器   简单：支持使用 Vercel 零成本一键部署, 您只需要配置一个免费数据库 强大：无限的拓展性, 应有尽有的配套功能尽在掌握 美观：基于 Bootstrap &amp; Argon 的现代化响应式风格 全面：Django 后端, 支持多种平台和数据库  Qexo 官方文档 服务器准备 服务商：亚马逊云 产品：EC2 系统：Ubuntu Se">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Qexo部署到服务器">
+<meta property="og:url" content="https://birdin.top/blog/2024/04/22/Qexo%E9%83%A8%E7%BD%B2%E5%88%B0%E6%9C%8D%E5%8A%A1%E5%99%A8/index.html">
+<meta property="og:site_name" content="birdin.top">
+<meta property="og:description" content="Qexo 一个美观、强大的在线 静态博客 管理器   简单：支持使用 Vercel 零成本一键部署, 您只需要配置一个免费数据库 强大：无限的拓展性, 应有尽有的配套功能尽在掌握 美观：基于 Bootstrap &amp; Argon 的现代化响应式风格 全面：Django 后端, 支持多种平台和数据库  Qexo 官方文档 服务器准备 服务商：亚马逊云 产品：EC2 系统：Ubuntu Se">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ImZjm/ImZjm@Data/images%2F24%2F04%2F22%2Fqexo_1713763222.png">
+<meta property="article:published_time" content="2024-04-22T05:03:15.000Z">
+<meta property="article:modified_time" content="2024-04-22T10:31:35.364Z">
+<meta property="article:author" content="恨别鸟惊心">
+<meta property="article:tag" content="Hexo">
+<meta property="article:tag" content="Qexo">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/ImZjm/ImZjm@Data/images%2F24%2F04%2F22%2Fqexo_1713763222.png"><link rel="shortcut icon" href="/blog/images/logo.png"><link rel="canonical" href="https://birdin.top/blog/2024/04/22/Qexo%E9%83%A8%E7%BD%B2%E5%88%B0%E6%9C%8D%E5%8A%A1%E5%99%A8/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="stylesheet" href="/blog/css/index.css?v=4.14.0-b2"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.35/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>(()=>{
+      const saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+      
+      window.btf = {
+        saveToLocal: saveToLocal,
+        getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+          const script = document.createElement('script')
+          script.src = url
+          script.async = true
+          script.onerror = reject
+          script.onload = script.onreadystatechange = function() {
+            const loadState = this.readyState
+            if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+            script.onload = script.onreadystatechange = null
+            resolve()
+          }
+
+          Object.keys(attr).forEach(key => {
+            script.setAttribute(key, attr[key])
+          })
+
+          document.head.appendChild(script)
+        }),
+
+        getCSS: (url, id = false) => new Promise((resolve, reject) => {
+          const link = document.createElement('link')
+          link.rel = 'stylesheet'
+          link.href = url
+          if (id) link.id = id
+          link.onerror = reject
+          link.onload = link.onreadystatechange = function() {
+            const loadState = this.readyState
+            if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+            link.onload = link.onreadystatechange = null
+            resolve()
+          }
+          document.head.appendChild(link)
+        }),
+
+        addGlobalFn: (key, fn, name = false, parent = window) => {
+          const pjaxEnable = true
+          if (!pjaxEnable && key.startsWith('pjax')) return
+
+          const globalFn = parent.globalFn || {}
+          const keyObj = globalFn[key] || {}
+    
+          if (name && keyObj[name]) return
+    
+          name = name || Object.keys(keyObj).length
+          keyObj[name] = fn
+          globalFn[key] = keyObj
+          parent.globalFn = globalFn
+        }
+      }
+    
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+      
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(e => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })()</script><script>const GLOBAL_CONFIG = {
+  root: '/blog/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: true
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":1000,"languages":{"author":"作者: 恨别鸟惊心","link":"链接: ","source":"来源: birdin.top","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: true,
+  islazyload: false,
+  isAnchor: true,
+  percent: {
+    toc: false,
+    rightside: false,
+  },
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Qexo部署到服务器',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-04-22 18:31:35'
+}</script><link rel="stylesheet" href="/blog/butterfly_custom_file/style.css"><meta name="generator" content="Hexo 7.1.1"><link rel="alternate" href="/blog/atom.xml" title="birdin.top" type="application/atom+xml">
+</head><body><script>window.paceOptions = {
+  restartOnPushState: false
+}
+
+btf.addGlobalFn('pjaxSend', () => {
+  Pace.restart()
+}, 'pace_restart')
+
+</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.min.css"/><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://avatars.githubusercontent.com/u/63181114?v=4" onerror="onerror=null;src='/images/loadFail.jpg'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/blog/archives/"><div class="headline">文章</div><div class="length-num">3</div></a><a href="/blog/tags/"><div class="headline">标签</div><div class="length-num">2</div></a><a href="/blog/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/blog/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/blog/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img fixed" id="page-header"><nav id="nav"><span id="blog-info"><a href="/blog/" title="birdin.top"><span class="site-name">birdin.top</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/blog/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/blog/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">Qexo部署到服务器</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-04-22T05:03:15.000Z" title="发表于 2024-04-22 13:03:15">2024-04-22</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-04-22T10:31:35.364Z" title="更新于 2024-04-22 18:31:35">2024-04-22</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.4k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>4分钟</span></span></div></div></div><article class="post-content" id="article-container"><img src="https://avatars.githubusercontent.com/u/103436983?s=200&v=4" alt="Hexo" width="100px"/>
+
+<h1 id="Qexo"><a href="#Qexo" class="headerlink" title="Qexo"></a>Qexo</h1><blockquote>
+<p>一个美观、强大的在线 静态博客 管理器</p>
+</blockquote>
+<ul>
+<li>简单：支持使用 Vercel 零成本一键部署, 您只需要配置一个免费数据库</li>
+<li>强大：无限的拓展性, 应有尽有的配套功能尽在掌握</li>
+<li>美观：基于 Bootstrap &amp; Argon 的现代化响应式风格</li>
+<li>全面：Django 后端, 支持多种平台和数据库</li>
+</ul>
+<p>Qexo <a target="_blank" rel="noopener" href="https://www.oplog.cn/qexo/">官方文档</a></p>
+<h1 id="服务器准备"><a href="#服务器准备" class="headerlink" title="服务器准备"></a>服务器准备</h1><ul>
+<li>服务商：亚马逊云</li>
+<li>产品：EC2</li>
+<li>系统：Ubuntu Server 22.04 LTS - 其他系统可能有所差异</li>
+</ul>
+<h1 id="安装-Python3"><a href="#安装-Python3" class="headerlink" title="安装 Python3"></a>安装 Python3</h1><p>执行以下命令一键安装 python3 和 pip3</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt update &amp;&amp; sudo apt install -y python3 python3-pip</span><br></pre></td></tr></table></figure>
+
+<p>分别通过以下命令查看是否安装成功</p>
+<ul>
+<li><code>python3 --version</code></li>
+<li><code>pip3 --version</code></li>
+</ul>
+<h1 id="安装-MySQL-数据库"><a href="#安装-MySQL-数据库" class="headerlink" title="安装 MySQL 数据库"></a>安装 MySQL 数据库</h1><h2 id="安装-MySQL"><a href="#安装-MySQL" class="headerlink" title="安装 MySQL"></a>安装 MySQL</h2><p>在 1Panel 应用商店中找到 MySQL，点击安装<br>版本选择 <code>5.7</code><br><strong>端口外部访问</strong>可以不用开(开了也用不到它)<br><img src="https://cdn.jsdelivr.net/gh/ImZjm/ImZjm@Data/images%2F24%2F04%2F22%2Fimage-20240422150303440_1713769383.png" alt="MySQL 安装"></p>
+<h2 id="添加数据库"><a href="#添加数据库" class="headerlink" title="添加数据库"></a>添加数据库</h2><p>数据库安装成功后，点击菜单栏的<code>数据库</code>来到<code>MySQL</code>的管理页面<br>点击创建数据库<br><img src="https://cdn.jsdelivr.net/gh/ImZjm/ImZjm@Data/images%2F24%2F04%2F22%2Fimage-20240422150802315_1713769682.png" alt="创建数据库"><br><strong>名称</strong>和<strong>用户名</strong>随意填，比如都填 <strong>hexo</strong>，然后确认创建</p>
+<h1 id="安装-Qexo"><a href="#安装-Qexo" class="headerlink" title="安装 Qexo"></a>安装 Qexo</h1><h2 id="下载-Qexo"><a href="#下载-Qexo" class="headerlink" title="下载 Qexo"></a>下载 Qexo</h2><div class="tabs" id="下载-qexo"><ul class="nav-tabs"><button type="button" class="tab  active" data-href="下载-qexo-1">通过 git 下载</button><button type="button" class="tab " data-href="下载-qexo-2">手动下载并解压</button></ul><div class="tab-contents"><div class="tab-item-content active" id="下载-qexo-1"><p><strong>执行以下命令，自动从 github 将仓库克隆到本地</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/Qexo/Qexo.git ~/qexo</span><br></pre></td></tr></table></figure>
+<p>这将从 <a target="_blank" rel="noopener" href="https://github.com/Qexo/Qexo">github</a> 克隆最新的源码到 &#x2F;home&#x2F;ubuntu&#x2F;qexo 文件夹中</p></div><div class="tab-item-content" id="下载-qexo-2"><p><strong>从 github 下载最新发行版并解压</strong></p>
+<ol>
+<li><p>在 <a target="_blank" rel="noopener" href="https://github.com/am-abudu/Qexo/releases">Release</a> 下载最新的版本 <em>Source code (zip)</em> 到电脑上</p>
+</li>
+<li><p>通过 1Panel 上传并解压<br><img src="https://cdn.jsdelivr.net/gh/ImZjm/ImZjm@Data/images%2F24%2F04%2F22%2Fimage-20240422145138846_1713768698.png" alt="上传压缩包"></p>
+<p>刷新页面后可以看到文件，点击解压<br><img src="https://cdn.jsdelivr.net/gh/ImZjm/ImZjm@Data/images%2F24%2F04%2F22%2Fimage-20240422145451879_1713768891.png" alt="上传的文件"></p>
+</li>
+</ol></div></div><div class="tab-to-top"><button type="button" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div>
+
+<h2 id="配置-Qexo"><a href="#配置-Qexo" class="headerlink" title="配置 Qexo"></a>配置 Qexo</h2><p>在 1Panel 中找到 qexo 的下载目录</p>
+<ol>
+<li><p>创建名为<code>configs.py</code>的文件</p>
+<img src="https://cdn.jsdelivr.net/gh/ImZjm/ImZjm@Data/images%2F24%2F04%2F22%2Fimage-20240422151625465_1713770185.png" alt="创建文件"/>
+</li>
+<li><p>编辑<code>configs.py</code>，添加以下内容</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pymysql</span><br><span class="line">pymysql.install_as_MySQLdb()</span><br><span class="line"><span class="comment">#域名</span></span><br><span class="line">DOMAINS = [<span class="string">&quot;127.0.0.1&quot;</span>, <span class="string">&quot;localhost&quot;</span>]</span><br><span class="line">DATABASES = &#123;</span><br><span class="line">    <span class="string">&#x27;default&#x27;</span>: &#123;</span><br><span class="line">            <span class="string">&#x27;ENGINE&#x27;</span>: <span class="string">&#x27;django.db.backends.mysql&#x27;</span>,</span><br><span class="line">            <span class="comment">#数据库名</span></span><br><span class="line">            <span class="string">&#x27;NAME&#x27;</span>: <span class="string">&#x27;qexo&#x27;</span>,</span><br><span class="line">            <span class="comment">#用户名</span></span><br><span class="line">            <span class="string">&#x27;USER&#x27;</span>: <span class="string">&#x27;qexo&#x27;</span>,</span><br><span class="line">            <span class="comment">#密码</span></span><br><span class="line">            <span class="string">&#x27;PASSWORD&#x27;</span>: <span class="string">&#x27;KFCvivo50&#x27;</span>,</span><br><span class="line">            <span class="comment">#数据库所在主机地址</span></span><br><span class="line">            <span class="string">&#x27;HOST&#x27;</span>: <span class="string">&#x27;127.0.0.1&#x27;</span>,</span><br><span class="line">            <span class="comment">#端口</span></span><br><span class="line">            <span class="string">&#x27;PORT&#x27;</span>: <span class="string">&#x27;3306&#x27;</span>,</span><br><span class="line">            <span class="string">&#x27;OPTIONS&#x27;</span>: &#123;</span><br><span class="line">                <span class="string">&quot;init_command&quot;</span>: <span class="string">&quot;SET sql_mode=&#x27;STRICT_TRANS_TABLES&#x27;&quot;</span></span><br><span class="line">            &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p><strong>DOMAINS</strong> 为可以访问到 Qexo 域名或 ip，如果访问的域名或 ip 没有在这里定义，访问会被拦截<br>这里建议不做修改，就填 <code>127.0.0.1</code> 或 <code>localhost</code></p>
+</li>
+<li><p>将 <strong>数据库名</strong> ，<strong>用户名</strong> 和 <strong>密码</strong> 修改为 <a href="#%E6%B7%BB%E5%8A%A0%E6%95%B0%E6%8D%AE%E5%BA%93">#添加数据库</a> 时填入的内容</p>
+</li>
+</ul>
+<p>点击确认保存</p>
+</li>
+<li><p>返回上一级目录(qexo的安装目录)<br>修改 qexo 文件夹及其子文件夹的归属为 <strong>ubuntu</strong><br><img src="https://cdn.jsdelivr.net/gh/ImZjm/ImZjm@Data/images%2F24%2F04%2F22%2Fimage-20240422155449965_1713772490.png" alt="修改 qexo 文件夹权限"></p>
+</li>
+<li><p>执行 <code>cd ~/qexo</code> 来到 qexo 的安装目录，再执行以下命令进行数据初始化</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash migrate.sh</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h1 id="启动-Qexo"><a href="#启动-Qexo" class="headerlink" title="启动 Qexo"></a>启动 Qexo</h1><h2 id="安装-Supervisor"><a href="#安装-Supervisor" class="headerlink" title="安装 Supervisor"></a>安装 Supervisor</h2><p><a target="_blank" rel="noopener" href="https://github.com/Supervisor/supervisor">Supervisor</a> 是一款开源的进程管理工具，它可以实现进程的自动启动、重启、监控等功能，并可以方便地实现进程的异步启动和自动化管理。<br>这里需要它来帮助我们管理 qexo 的进程</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt update &amp;&amp; sudo apt install supervisor</span><br></pre></td></tr></table></figure>
+
+<p>执行命令一键安装 supervisor<br>在 1Panel 面板中依次点击 <code>工具箱</code> -&gt; <code>进程守护</code><span class="hide-inline"><button type="button" class="hide-button" style="background-color: gray;color: transparent"> 鸡你太美
+  </button><span class="hide-content">如果显示 <b>未检测到 Supervisor 服务</b>，说明Supervisor未安装或安装失败，请重试上面的安装命令</span></span></p>
+<p>点击 <strong>初始化</strong>，使用默认配置，点击确认保存<br><img src="https://cdn.jsdelivr.net/gh/ImZjm/ImZjm@Data/images%2F24%2F04%2F22%2Fimage-20240422162607300_1713774367.png" alt="进程守护初始化"><br>再次确认初始化</p>
+<h2 id="创建-Qexo-进程守护"><a href="#创建-Qexo-进程守护" class="headerlink" title="创建 Qexo 进程守护"></a>创建 Qexo 进程守护</h2><p>点击 <strong><code>创建守护进程</code></strong><br><img src="https://cdn.jsdelivr.net/gh/ImZjm/ImZjm@Data/images%2F24%2F04%2F22%2Fimage-20240422163113837_1713774673.png" alt="qexo 进程配置"></p>
+<ul>
+<li>名称随意，比如填 <code>114514</code></li>
+<li>启动用户填 <code>ubuntu</code></li>
+<li>如上图选择运行目录</li>
+<li>启动命令填 <code>python3 manage.py runserver 0.0.0.0:8000 --noreload</code><br>这将在 <strong>8000</strong> 端口上启动 Qexo 服务</li>
+<li>进程数填 <code>1</code></li>
+</ul>
+<p>最后确认保存<br>这时可以通过 <a href="#%E9%85%8D%E7%BD%AE-Qexo">#配置 Qexo</a> 时第  <strong><code>2</code></strong>  步配置的域名(或 公有ip) 加端口打开 Qexo面板<br><img src="https://cdn.jsdelivr.net/gh/ImZjm/ImZjm@Data/images%2F24%2F04%2F22%2Fimage-20240422171559783_1713777359.png" alt="Qexo 初始化页面"></p>
+<h1 id="可选-反向代理-Qexo"><a href="#可选-反向代理-Qexo" class="headerlink" title="(可选)反向代理 Qexo"></a>(可选)反向代理 Qexo</h1><details class="toggle" style="border: 1px solid bg"><summary class="toggle-button" style="background-color: bg;color: color">反向代理 Qexo</summary><div class="toggle-content"><p><font color="red" size="4em">如果没有域名，建议直接跳过这一步</font></p>
+<p>为了方便对 Qexo 进行管理，可以在 1Panel 面板新建一个网站来反向代理 Qexo<br>在 1Panel 的网站页面选择 <strong><code>创建网站</code></strong> -&gt; <strong><code>反向代理</code></strong> </p>
+<ul>
+<li><p>主域名填自己的域名(不能与博客相同，比如解析一个qexo-admin.example.com)</p>
+</li>
+<li><p>代号随意，比如 <code>qexo</code></p>
+</li>
+<li><p>代理地址填 <a href="#%E9%85%8D%E7%BD%AE-Qexo">#配置 Qexo</a> 时第  <strong><code>2</code></strong>  步配置的 ip + <a href="#%E5%88%9B%E5%BB%BA-Qexo-%E8%BF%9B%E7%A8%8B%E5%AE%88%E6%8A%A4">创建 Qexo 进程守护</a> 时，命令中使用的端口<br>例: <code>127.0.0.1:8000</code></p>
+</li>
+</ul>
+<img src="https://cdn.jsdelivr.net/gh/ImZjm/ImZjm@Data/images%2F24%2F04%2F22%2Fimage-20240422174126164_1713778886.png" width="50%" alt="qexo 反向代理创建"/>
+
+<p>再点击 <code>配置</code> 进入网站的配置界面<br><img src="https://cdn.jsdelivr.net/gh/ImZjm/ImZjm@Data/images%2F24%2F04%2F22%2Fimage-20240422174619324_1713779179.png" alt="配置反向代理"></p>
+<p>将后端域名改为 <code>127.0.0.1</code> 或 <code>localhost</code> - 因为 <a href="#%E9%85%8D%E7%BD%AE-Qexo">#配置 Qexo</a> 时，我的 <code>DOMAINS</code> 填的 <code>127.0.0.1</code><br><img src="https://cdn.jsdelivr.net/gh/ImZjm/ImZjm@Data/images%2F24%2F04%2F22%2Fimage-20240422174917423_1713779357.png" alt="修改后端域名"></p>
+<p><font color="#00ff00">这时，可以直接使用 域名 来访问 Qexo 面板</font></p>
+</div></details>
+
+<h1 id="Qexo-面板初始化"><a href="#Qexo-面板初始化" class="headerlink" title="Qexo 面板初始化"></a>Qexo 面板初始化</h1><p>通过<strong>域名</strong>或 <strong>ip</strong> 打开 Qexo 面板，首次打开会跳转到初始化页面，点击开始初始化<br><img src="https://cdn.jsdelivr.net/gh/ImZjm/ImZjm@Data/images%2F24%2F04%2F22%2Fimage-20240422181210729_1713780730.png" alt="Qexo 博客配置"></p>
+<ul>
+<li>服务商选 <code>本地</code>，表示 hexo 与 qexo 都部署在同一台服务器上<br>其他服务商请按要求填写</li>
+<li>使用配置选择 <code>Hexo</code></li>
+<li>博客路径填 <code>Hexo</code> 的源代码的绝对路径，例如<code>/home/ubuntu/hexoblog</code><br>注意: 不是静态资源的路径。如果博客是使用一键部署插件部署到服务器的，请按照 <a target="_blank" rel="noopener" href="http://localhost:4000/blog/tags/Hexo/">#Hexo</a> 中的部署方式部署 Hexo 博客到服务器<br>因为一键部署只会推送静态资源到服务器，Qexo 需要 Hexo 源代码才能修改博客内容</li>
+<li>自动部署填 <code>hexo clean &amp;&amp; hexo g</code><br>这会自动生成静态资源，并将静态资源放在 hexo 根配置文件中指定的目录(网站目录)中</li>
+</ul>
+<p>点击下一步，即可通过方才设置的账号和密码登录面板<br><img src="https://cdn.jsdelivr.net/gh/ImZjm/ImZjm@Data/images%2F24%2F04%2F22%2Fimage-20240422182943222_1713781783.png" alt="Qexo 面板"></p>
+<div style="text-align: center"><font size="10em" color="#00ff00">恭喜，你的 Qexo 部署成功了!</font></div>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://birdin.top/blog">恨别鸟惊心</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://birdin.top/blog/2024/04/22/Qexo%E9%83%A8%E7%BD%B2%E5%88%B0%E6%9C%8D%E5%8A%A1%E5%99%A8/">https://birdin.top/blog/2024/04/22/Qexo部署到服务器/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://birdin.top/blog" target="_blank">birdin.top</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/blog/tags/Hexo/">Hexo</a><a class="post-meta__tags" href="/blog/tags/Qexo/">Qexo</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/ImZjm/ImZjm@Data/images%2F24%2F04%2F22%2Fqexo_1713763222.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://avatars.githubusercontent.com/u/63181114?v=4" onerror="this.onerror=null;this.src='/blog/images/loadFail.jpg'" alt="avatar"/></div><div class="author-info__name">恨别鸟惊心</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/blog/archives/"><div class="headline">文章</div><div class="length-num">3</div></a><a href="/blog/tags/"><div class="headline">标签</div><div class="length-num">2</div></a><a href="/blog/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/ImZjm"><i class="fab fa-github"></i><span>Github</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://space.bilibili.com/442417925" target="_blank" title="哔哩哔哩"><i class="fab fa-bilibili" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:imzhu.jm@outlook.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #24292e;"></i></a><a class="social-icon" href="/blog/atom.xml" target="_blank" title="RSS"><i class="fas fa-rss" style="color: #24292e;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content"><div style="text-align: center">只要工地干得好<hr style="width: 10%">老婆年年在高考</div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Qexo"><span class="toc-number">1.</span> <span class="toc-text">Qexo</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%87%86%E5%A4%87"><span class="toc-number">2.</span> <span class="toc-text">服务器准备</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-Python3"><span class="toc-number">3.</span> <span class="toc-text">安装 Python3</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-MySQL-%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-number">4.</span> <span class="toc-text">安装 MySQL 数据库</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-MySQL"><span class="toc-number">4.1.</span> <span class="toc-text">安装 MySQL</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-number">4.2.</span> <span class="toc-text">添加数据库</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-Qexo"><span class="toc-number">5.</span> <span class="toc-text">安装 Qexo</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BD-Qexo"><span class="toc-number">5.1.</span> <span class="toc-text">下载 Qexo</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE-Qexo"><span class="toc-number">5.2.</span> <span class="toc-text">配置 Qexo</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8-Qexo"><span class="toc-number">6.</span> <span class="toc-text">启动 Qexo</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-Supervisor"><span class="toc-number">6.1.</span> <span class="toc-text">安装 Supervisor</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA-Qexo-%E8%BF%9B%E7%A8%8B%E5%AE%88%E6%8A%A4"><span class="toc-number">6.2.</span> <span class="toc-text">创建 Qexo 进程守护</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%AF%E9%80%89-%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86-Qexo"><span class="toc-number">7.</span> <span class="toc-text">(可选)反向代理 Qexo</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Qexo-%E9%9D%A2%E6%9D%BF%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="toc-number">8.</span> <span class="toc-text">Qexo 面板初始化</span></a></li></ol></div></div></div></div></main><footer id="footer" style="background: transparent"><div id="footer-wrap"><div class="copyright">&copy;2024 By 恨别鸟惊心</div><div class="footer_custom_text">本站由 <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> 静态博客框架强力驱动</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/blog/js/utils.js?v=4.14.0-b2"></script><script src="/blog/js/main.js?v=4.14.0-b2"></script><script src="/blog/js/tw_cn.js?v=4.14.0-b2"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.35/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@5.2.0/instantpage.min.js" type="module"></script><div class="js-pjax"><script>(() => {
+  const runMermaid = (ele) => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    Array.from(ele).forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+      const mermaidID = 'mermaid-' + index
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+
+      const renderV10 = () => {
+        renderFn.then(({svg}) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svg)
+        })
+      }
+
+      const renderV9 = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      typeof renderFn === 'string' ? renderV9(renderFn) : renderV10()
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+    
+    codeMermaidEle.forEach(ele => {
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.innerHTML = `<pre class="mermaid-src" hidden>${ele.textContent}</pre>`
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (false) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid@10.9.0/dist/mermaid.min.js').then(runMermaidFn)
+  }
+  
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script></div><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/click-show-text.min.js" data-mobile="false" data-text="富强,民主,文明,和谐,自由,平等,公正,法治,爱国,敬业,诚信,友善" data-fontsize="15px" data-random="true" async="async"></script><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+const triggerPjaxFn = (val) => {
+  if (!val) return
+  Object.values(val).forEach(fn => { fn() })
+}
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener
+  btf.removeGlobalFnEvent('pjax')
+  btf.removeGlobalFnEvent('themeChange')
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+  triggerPjaxFn(window.globalFn.pjaxSend)
+})
+
+document.addEventListener('pjax:complete', () => {
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  triggerPjaxFn(window.globalFn.pjaxComplete)
+})
+
+document.addEventListener('pjax:error', e => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/blog/404.html')
+  }
+})</script></div></body></html>
