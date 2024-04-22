@@ -2,6 +2,7 @@
 title: Hexo部署到服务器
 date: 2024-04-21 21:42:13
 tags: ['Hexo']
+categories: ['Hexo 博客']
 ---
 
 <img src="https://raw.githubusercontent.com/hexojs/logo/master/hexo-logo-avatar.png" alt="Hexo" width="100px"/>

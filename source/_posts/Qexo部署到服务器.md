@@ -2,6 +2,7 @@
 title: Qexo部署到服务器
 date: 2024-04-22 13:03:15
 tags: ['Qexo', 'Hexo']
+categories: ['Hexo 博客']
 cover: https://cdn.jsdelivr.net/gh/ImZjm/ImZjm@Data/images%2F24%2F04%2F22%2Fqexo_1713763222.png
 ---
 
