@@ -63,3 +63,8 @@ body{
     animation-name: unset;
     color: #00ff00 !important;
 }
+
+/* 文章封面的填充方式 */
+.post-bg{
+    object-fit: contain !important;
+}
