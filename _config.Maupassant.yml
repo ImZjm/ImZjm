@@ -123,11 +123,13 @@ menu:
 widgets: ## Seven widgets in sidebar provided: search, info, category, tag, recent_posts, recent_comments and links.
   - search
   - info
-  - category
+  # - category
   - tag
   - recent_posts
   - recent_comments
   # - links
+
+toc: true   ## 生成目录总开关，需在Front-matter中配置toc: true
 
 info:
   avatar: http://q.qlogo.cn/headimg_dl?dst_uin=3346926171&spec=640&img_type=jpg
