@@ -3,11 +3,11 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: birdin.top
+title: 恨别鸟惊心
 subtitle: 'birdin.top'
 description: ''
 keywords:
-author: 恨别鸟惊心
+author: ImZjm
 language: zh-CN
 timezone: 'Asia/Shanghai'
 
@@ -96,7 +96,7 @@ ignore:
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: landscape
+theme: Maupassant
 
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
