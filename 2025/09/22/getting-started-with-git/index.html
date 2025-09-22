@@ -1,0 +1,122 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content=""><title>Git入门 | 恨别鸟惊心</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=1.0.0"><link rel="stylesheet" type="text/css" href="https://unpkg.com/normalize.css"><link rel="stylesheet" type="text/css" href="https://unpkg.com/purecss/build/pure-min.css"><link rel="stylesheet" type="text/css" href="https://unpkg.com/purecss/build/grids-responsive-min.css"><link rel="stylesheet" href="https://unpkg.com/font-awesome@4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="https://unpkg.com/jquery/dist/jquery.min.js"></script><link rel="icon" mask="" sizes="any" href="/favicon.ico"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><link rel="alternate" type="application/atom+xml" href="/atom.xml"><script type="text/javascript" src="https://unpkg.com/clipboard/dist/clipboard.min.js"></script><script type="text/javascript" src="https://unpkg.com/toastr/build/toastr.min.js"></script><link rel="stylesheet" href="https://unpkg.com/toastr/build/toastr.min.css"><div class="darkmode-toggle">🌓</div><script>var prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)');
+var toggle = document.querySelector('.darkmode-toggle');
+var html = document.querySelector('html');
+
+html.dataset.dark = localStorage.dark || prefersDarkMode.matches;
+
+toggle.addEventListener('click', () => {
+localStorage.dark = !(html.dataset.dark == 'true');
+html.dataset.dark = localStorage.dark;
+});</script><meta name="generator" content="Hexo 7.3.0"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">Git入门</h1><a id="logo" href="/.">恨别鸟惊心</a><p class="description">birdin.top</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a><a href="/atom.xml"><i class="fa fa-rss"> 订阅</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">Git入门</h1><div class="post-meta">2025-09-22<script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script><span id="busuanzi_container_page_pv"> | <span id="busuanzi_value_page_pv"></span><span> 阅读</span></span><span class="post-time"><span class="post-meta-item-text"> | </span><span class="post-meta-item-icon"><i class="fa fa-keyboard-o"></i><span class="post-count"> 2.9k</span><span class="post-meta-item-text"> 字</span></span></span><span class="post-time"> | <span class="post-meta-item-icon"><i class="fa fa-clock-o"></i><span class="post-count"> 10</span><span class="post-meta-item-text"> 分钟</span></span></span></div><div class="post-content"><p>Git是目前全球最流行的<strong>分布式版本控制系统</strong>，用于高效管理代码（或任何文件）的修改历史，支持多人协作开发</p>
+<ul>
+<li><strong>分布式</strong>：每个开发者本地都有完整的代码仓库，无需依赖中央服务器即可提交、分支等操作</li>
+<li><strong>高效性</strong>：对大项目的操作（如分支切换、提交）速度极快</li>
+<li><strong>安全性</strong>：通过哈希算法确保代码历史不可篡改</li>
+<li><strong>强大的分支功能</strong>：支持灵活的分支创建、合并，轻松实现并行开发</li>
+</ul>
+<span id="more"></span>
+
+<p><strong>总之</strong>：高效的管理代码，可以查看不同时间段提交的，修改过的、没修改过的，增加了哪个文件，删除了哪个文件，改了哪个文件，改了哪一行代码，什么时候改的，谁改的，谁提交的……</p>
+<h1 id="理解git"><a href="#理解git" class="headerlink" title="理解git"></a>理解git</h1><p>想要使用git，首先得了解git，git是如何配合各个仓库分支和开发者的。</p>
+<p><strong>仓库</strong>：我们的代码都放在仓库里，我们可以将一个项目的根目录作为仓库目录</p>
+<ul>
+<li>本地仓库：仓库和代码都存在自己的电脑上</li>
+<li>远程仓库：仓库和代码存在一台服务器上，其他开发者可以访问这个仓库<ul>
+<li>公有仓库：一个所有人都可以访问的远程仓库</li>
+<li>私有仓库：只有我和我的团队才能访问的远程仓库</li>
+</ul>
+</li>
+</ul>
+<p><strong>分支</strong>：仓库里面存放着代码，代码又可以有不同的分支，开发不同的功能。你姑且可以吧<code>抖音</code>和<code>tiktok</code>看成同一个项目的两个不同分支。对于老版本的git，创建主分支默认名为<code>master</code>，新版本的git一般叫<code>main</code>，就是名字不一样，没别的区别。</p>
+<p><strong>克隆</strong>：从远程（仓库）把代码拿到本地，一般使用克隆，这会直接将远程仓库中的所有代码包括提交记录等等，全部原封不动的拿到本地你指定的文件夹中。一般不建议直接下载zip压缩包拿代码（小破站某知名博主就是这么塌房的），这仅仅只会拿代码到本地而不会携带任何作者信息，不利于二次开发。</p>
+<p><strong>提交</strong>：当你写完代码后，你可以将代码提交到仓库中，并（必须）携带一条提交概要（summary），这时，你可以在本地仓库的提交记录中看到这条记录，你于某时某刻提交，对项目做了哪些修改，精确到具体某一行。</p>
+<p><strong>推送</strong>：你本地仓库里面已经写好了代码，并且提交到了本地仓库，这时你可以将本地的提交推送到远程，推送完成后，远程仓库就能看到你的这条提交记录了。</p>
+<p><strong>拉取</strong>：你将远程的代码克隆到了本地，一段时间后，其他开发者向远程推送了新的代码，你则可以将远程最新的代码拉取到本地。</p>
+<p>更多待补充……</p>
+<h1 id="Git的安装和简要配置"><a href="#Git的安装和简要配置" class="headerlink" title="Git的安装和简要配置"></a>Git的安装和简要配置</h1><h2 id="不同系统安装"><a href="#不同系统安装" class="headerlink" title="不同系统安装"></a>不同系统安装</h2><table>
+<thead>
+<tr>
+<th align="left">平台</th>
+<th>安装方法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Windows</td>
+<td>1.下载官方安装包：<a target="_blank" rel="noopener" href="https://git-scm.cn/downloads/win">Git For Windows</a><br />2.双击安装并无脑下一步（初学者不建议修改安装选项）</td>
+</tr>
+<tr>
+<td align="left">macOS</td>
+<td>方法1：使用Homebrew，安装命令：<code>brew install git</code><br />方法2：安装苹果官方的命令行工具（Command Line Tools）<br />安装命令：<code> xcode-select --install</code>，官方的开发工具中自带了Git等开发环境</td>
+</tr>
+<tr>
+<td align="left">Linux</td>
+<td>你都用上linux还能不会安装软件？？？<br />大便系列（Debian）：<code>sudo apt install git</code></td>
+</tr>
+</tbody></table>
+<p>win的建议</p>
+<ul>
+<li>在安装时，一般不建议取消 “Add Git to PATH”，方便命令行调用</li>
+<li>安装后，一般建议配置一个<code>HOME</code>环境变量指定一个自己的工作目录作为家目录，这样，在git bash中使用<code>cd ~</code>时可以像linux一样有一个家目录可以用，并在家目录中配置各种奇奇怪怪的文件</li>
+</ul>
+<h2 id="验证安装"><a href="#验证安装" class="headerlink" title="验证安装"></a>验证安装</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git --version</span><br><span class="line"><span class="comment"># 示例输出：git version 2.39.5 (Apple Git-154)</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="配置用户名与邮箱"><a href="#配置用户名与邮箱" class="headerlink" title="配置用户名与邮箱"></a>配置用户名与邮箱</h2><p><strong>用户名</strong>：<br>这里的用户名可以看作是你的昵称，可以使用中文等字符。在项目版本管理中，将会显示某某提交于某年某月。一般设置成一个有标识性，能让人一眼认出你来的英文名。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name <span class="string">&quot;你的用户名&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>邮箱</strong>：邮箱在git中是开发者的唯一标识。<br>场景理解：我在a电脑配置的用户名叫<code>xukun</code>，我在b电脑的叫<code>zhiyin</code>，但是我都配置了同一个邮箱，那么在统计数据时，系统都将认为是同一个开发者提交的代码。在一些远程仓库中（比如github），有点击查看提交者主页的功能，只要邮箱是同一个，就会跳转到同一个用户的主页。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.email <span class="string">&quot;你的邮箱&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>配置的适用范围</strong><br>以上命令均携带<code>--global</code>，这将使配置在全局生效，配置保存在<code>~/.gitconfig</code>文件中</p>
+<p>对于某一个项目，可以单独配置这个仓库使用另一个用户名和邮箱<br>场景理解：在自己的电脑中有一些个人项目，使用全局配置的用户名和邮箱，现在回家加班，在自己电脑上拉取了公司的代码，这时给仓库单独配置一个用户名和邮箱（一般是自己的大名和公司邮箱），这样既不影响自己的个人项目，也不影响公司项目。</p>
+<p>都配置好后，你就可以愉快地写代码，提交代码了！</p>
+<h1 id="特殊文件"><a href="#特殊文件" class="headerlink" title="特殊文件"></a>特殊文件</h1><h2 id="官方定义"><a href="#官方定义" class="headerlink" title="官方定义"></a>官方定义</h2><p><strong>.gitignore</strong>：当你使用集成开发环境（IDE）创建项目时，一般开发工具会给你自动生成一个<code>.gitignore</code>，这个文件里面标记不需要被git跟踪的文件或文件夹。<br>一般来说，IDE的配置文件，编译产生的文件都会标记在<code>.gitignore</code>中，让git不要记录这些文件或文件夹</p>
+<h2 id="约定俗成"><a href="#约定俗成" class="headerlink" title="约定俗成"></a>约定俗成</h2><p><strong>.gitkeep</strong>：如果一个文件夹是空的，git不会记录这个文件夹，这时可以在文件夹中创建一个名为<code>.gitkeep</code>的空文件，用于让git跟踪空目录</p>
+<h1 id="Git的基本操作"><a href="#Git的基本操作" class="headerlink" title="Git的基本操作"></a>Git的基本操作</h1><h2 id="初始化（git-init）"><a href="#初始化（git-init）" class="headerlink" title="初始化（git init）"></a>初始化（git init）</h2><p>你是项目作者，你新建了一个项目，这时你可以将项目初始化为一个git仓库</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在项目根目录下</span></span><br><span class="line"><span class="built_in">cd</span> project-root</span><br><span class="line"></span><br><span class="line"><span class="comment"># 初始化仓库，生产隐藏文件夹 .git</span></span><br><span class="line">git init</span><br></pre></td></tr></table></figure>
+
+<p>使用命令后，git会在当前目录下生成一个<code>.git</code>隐藏文件夹，仓库的所有信息都会存放在这个文件夹里，删除这个文件夹，git仓库就没了只剩下代码里。</p>
+<h2 id="克隆（git-clone）"><a href="#克隆（git-clone）" class="headerlink" title="克隆（git clone）"></a>克隆（git clone）</h2><p>你是新来的开发者，你接手了一个项目，现在你要拿到代码并进入开发状态。不要直接在仓库下载zip压缩包，下载压缩包是没有<code>.git</code>文件夹的，也就没有仓库信息，你将无法提交和推送代码。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建一个项目目录并进入</span></span><br><span class="line"><span class="built_in">mkdir</span> project-dir &amp;&amp; <span class="built_in">cd</span> project-dir</span><br><span class="line"></span><br><span class="line"><span class="comment"># 克隆代码到当前文件夹，这时project-dir就是项目的根目录</span></span><br><span class="line">git <span class="built_in">clone</span> https://xxx.com/user/repo.git</span><br></pre></td></tr></table></figure>
+
+<p>使用命令后，project-dir目录中的内容就会与远程仓主分支中的内容同步，或者</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建文件夹并克隆</span></span><br><span class="line">git <span class="built_in">clone</span> https://xxx.com/user/repo.git project-dir</span><br></pre></td></tr></table></figure>
+
+<p>这会创建一个<code>project-dir</code>文件夹，并将远程的代码放进去，二者任选其一即可，没有区别。</p>
+<h2 id="暂存（git-add）"><a href="#暂存（git-add）" class="headerlink" title="暂存（git add）"></a>暂存（git add）</h2><p>提交代码前，你需要将代码加入暂存区，提交时，只有暂存区的代码会被提交到仓库。在一些图形化的git工具里面，可能都不会提到<code>暂存</code>这个词，变成了用复选框打勾，勾上要提交的修改点击提交就行。VSCode中有<code>暂停</code>的概念，点击加号添加到暂存区再点击提交，其实就跟其他图形工具的打勾一样，看着不同罢了。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 暂存单个文件</span></span><br><span class="line">git add 文件  <span class="comment"># 如 git add index.html</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 暂存所有修改的文件</span></span><br><span class="line">git add .</span><br><span class="line"></span><br><span class="line"><span class="comment"># 暂存指定类型文件（如所有 .js 文件）</span></span><br><span class="line">git add *.js</span><br></pre></td></tr></table></figure>
+
+<p>使用命令后，指定的文件就会添加到暂存区等待提交</p>
+<h2 id="提交（git-commit）"><a href="#提交（git-commit）" class="headerlink" title="提交（git commit）"></a>提交（git commit）</h2><p>代码写完后，或实现某个功能后，可以进行一次代码提交，这将记录本次修改了什么，谁修改的……<br>后面可以在提交记录中找到这条提交，查看提交内容，也可以一键回退到这个提交记录的版本。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit -m <span class="string">&quot;提交说明&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>使用命令后，暂存区的修改会被提交到本地仓库，并附上提交说明，请务必携带提交说明，否则提交失败。<br>没有被add的文件则不会被提交。</p>
+<p><strong>重新提交（修订）</strong>：刚才提交错了，并且提交还没有推动到远程，这时还有后悔药</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit --amend</span><br></pre></td></tr></table></figure>
+
+<h2 id="远程（git-remote）"><a href="#远程（git-remote）" class="headerlink" title="远程（git remote）"></a>远程（git remote）</h2><p>将一个本地仓库与多个远程仓库进行关联。这样，推送代码的时候，git就知道代码要推送到哪。</p>
+<p>对于一个新的git仓库，肯定是没有定义远程的。如果代码是克隆过来的，那么远程已经定义好了，就是被克隆的这个仓库。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看当前已定义的远程仓库</span></span><br><span class="line">git remote -v</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义远程仓库</span></span><br><span class="line">git remote add origin https://github.com/your-username/your-repo.git</span><br></pre></td></tr></table></figure>
+
+<p>这里<code>origin</code>是你在本地给远程仓库取的名字，用这个名字代替那一长坨链接。一般我们都会取名为<code>origin</code>，只有一个远程仓库时，不推荐取别的名字。</p>
+<h2 id="推送（git-push）"><a href="#推送（git-push）" class="headerlink" title="推送（git push）"></a>推送（git push）</h2><p>你写完代码，并将修改提交到了本地的某个分支，这时，你可以将这些修改同步到远程，既推送。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 将本地的master分支推送到远程的master分支</span></span><br><span class="line">git push origin master:master</span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果本地分支与远程分支的名字相同，可以省略冒号</span></span><br><span class="line">git push origin master</span><br></pre></td></tr></table></figure>
+
+<p>这时系统会验证你的权限，是否有同送代码的权限，权限校验成功后，远程的提交记录就会与本地同步，其他开发者（有权限）就能看到这些代码是你写的，你什么时候提交的等等。</p>
+<p>后续如果还是提交这个分支，命令还可以再省略</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 省略再省略的命令</span></span><br><span class="line">git push</span><br></pre></td></tr></table></figure>
+
+<p><strong>强制推送</strong>：本地的提交与远程的提交发生冲突时，可以使用强制推送（不推荐）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 强制推送，在后面加 --force</span></span><br><span class="line">git push origin master --force</span><br><span class="line"></span><br><span class="line"><span class="comment"># 或省略成 -f</span></span><br><span class="line">git push -f</span><br></pre></td></tr></table></figure>
+
+<p>强制推送需要谨慎使用，如果是保护分支，在强制推送时会提示没有权限。</p>
+<p>强制推送后，本地的记录会强制覆盖远程，如果其他开发者提交了别的代码，也会被覆盖。</p>
+<h1 id="图形化工具"><a href="#图形化工具" class="headerlink" title="图形化工具"></a>图形化工具</h1><p>让开发者更专注于写代码，而不是调教git</p>
+<h2 id="Github-Desktop"><a href="#Github-Desktop" class="headerlink" title="Github Desktop"></a>Github Desktop</h2><p>链接：<a target="_blank" rel="noopener" href="https://github.com/apps/desktop">https://github.com/apps/desktop</a><br>github官方开源的图形化git工具，界面简洁实用<br><img src="https://cdn.jsdelivr.net/gh/ImZjm/ResourceHub/images%2F2025%2F09%2F22%2F20250922222859992_1758551340.png" alt="Github Desktop截图"></p>
+<h2 id="UGit"><a href="#UGit" class="headerlink" title="UGit"></a>UGit</h2><p>链接：<a target="_blank" rel="noopener" href="https://ugit.qq.com/zh/">https://ugit.qq.com/zh/</a><br>腾讯家的git图形化工具，功能相对更多<br><img src="https://cdn.jsdelivr.net/gh/ImZjm/ResourceHub/images%2F2025%2F09%2F22%2Fimage-20250922224242702_1758552162.png" alt="UGit截图"></p>
+</div><script type="text/javascript" src="/js/share.js?v=1.0.0" async></script><a class="article-share-link" data-url="https://blog.birdin.top/2025/09/22/getting-started-with-git/" data-id="cmfvamfij0003wu2b84soe5kp" data-qrcode="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACJ0lEQVR42u3aMW7DMAwF0Nz/0inQNZDzScaDpafJsGNLrwMrkXy94vH+H593Pu8nT1dfzt9qDgwMjMcy3pdjNdlq4tVSrr+ZfG21NgwMjHMY1VB4PVkelJN5o3cxMDAwikEwD53VoIyBgYExD7jXITghYWBgYEwOsb1fVtN5t5/FMTAwHsiYT3Pf9Y31DQwMjIcw3sWRFDXvmPfLqjAwMLZmVBf0qwaL6oE2CscYGBibMnpJtF66LU+clUM5BgbGwYzJZL1iQzVAY2BgnMPoHTITUnXbV03wYWBgnMDobePmW8nq5vJ6tRgYGHszrrdld7RNTEjLawwMjAMYSVNX734SOifXGBgY5zDK6a0YUE3DVWfBwMA4gZFP1jtk5gWAPJGHgYFxGqOa0J90n+Vlhrzk0KxLYGBgPJBR3d4lk1XbxaoNZMuzOAYGxqaManK/14Qxb29d/rkxMDAOYOQH0cmhtFpCKPwDwMDA2JqRhL88sCZH2erTckkAAwNjO0Yvif+rhonqneWqMDAwDmDki+vdSWbJxw/O4hgYGI9iVMsAeWjOC5k5qRx2MTAwtmC8i6NKqralNp9iYGBszZhvyHpp/QRZKGFiYGAcwMgbVaubtt6Xm+2tGBgYBzB6R9ZJQ+o80YaBgYHR2wLmjRrzX44KmRgYGFszJoXJyRbzy8YRAwPjAEbexpq/VT3Q5s1h5UImBgbGwxn3FQZ+2946abTFwMB4LOMPallgvne8IywAAAAASUVORK5CYII=">分享</a><div class="tags"><ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%99%E7%A8%8B/" rel="tag">教程</a></li></ul></div><div class="post-nav"><a class="pre" href="/2025/09/22/hello-world/">Hello World</a><a class="next" href="/2025/01/05/cpp/">C++满分密集</a></div></div></div></div><div class="pure-u-1 pure-u-md-1-4"><div id="sidebar"><div class="widget"><div class="search-form"><input id="local-search-input" placeholder="Search" type="text" name="q" results="0"/><div id="local-search-result"></div></div></div><div class="widget"><div class="author-info"><a class="info-avatar" href="/about/" title="关于"><img class="nofancybox" src="http://q.qlogo.cn/headimg_dl?dst_uin=3346926171&amp;spec=640&amp;img_type=jpg"/></a><p>Life is code, I'am coding.</p><a class="info-icon" href="mailto:3346926171@qq.com" title="Email" target="_blank" style="margin-inline:5px"> <i class="fa fa-envelope-square" style="margin-inline:5px"></i></a><a class="info-icon" href="https://github.com/ImZjm" title="Github" target="_blank" style="margin-inline:5px"> <i class="fa fa-github-square" style="margin-inline:5px"></i></a><a class="info-icon" href="/blog/atom.xml" title="RSS" target="_blank" style="margin-inline:5px"> <i class="fa fa-rss-square" style="margin-inline:5px"></i></a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/%E6%95%99%E7%A8%8B/" style="font-size: 15px;">教程</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2025/09/22/hello-world/">Hello World</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/09/22/getting-started-with-git/">Git入门</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/01/05/cpp/">C++满分密集</a></li></ul></div><div class="widget hidden_mid_and_down" id="toc"><div class="widget-title"><i class="fa fa-list-ul"></i><span> 文章目录</span></div><ul class="dsq-widget-list"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%90%86%E8%A7%A3git"><span class="toc-number">1.</span> <span class="toc-text">理解git</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Git%E7%9A%84%E5%AE%89%E8%A3%85%E5%92%8C%E7%AE%80%E8%A6%81%E9%85%8D%E7%BD%AE"><span class="toc-number">2.</span> <span class="toc-text">Git的安装和简要配置</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8D%E5%90%8C%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85"><span class="toc-number">2.1.</span> <span class="toc-text">不同系统安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%AA%8C%E8%AF%81%E5%AE%89%E8%A3%85"><span class="toc-number">2.2.</span> <span class="toc-text">验证安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E7%94%A8%E6%88%B7%E5%90%8D%E4%B8%8E%E9%82%AE%E7%AE%B1"><span class="toc-number">2.3.</span> <span class="toc-text">配置用户名与邮箱</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%89%B9%E6%AE%8A%E6%96%87%E4%BB%B6"><span class="toc-number">3.</span> <span class="toc-text">特殊文件</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%98%E6%96%B9%E5%AE%9A%E4%B9%89"><span class="toc-number">3.1.</span> <span class="toc-text">官方定义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BA%A6%E5%AE%9A%E4%BF%97%E6%88%90"><span class="toc-number">3.2.</span> <span class="toc-text">约定俗成</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Git%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C"><span class="toc-number">4.</span> <span class="toc-text">Git的基本操作</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96%EF%BC%88git-init%EF%BC%89"><span class="toc-number">4.1.</span> <span class="toc-text">初始化（git init）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%8B%E9%9A%86%EF%BC%88git-clone%EF%BC%89"><span class="toc-number">4.2.</span> <span class="toc-text">克隆（git clone）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9A%82%E5%AD%98%EF%BC%88git-add%EF%BC%89"><span class="toc-number">4.3.</span> <span class="toc-text">暂存（git add）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8F%90%E4%BA%A4%EF%BC%88git-commit%EF%BC%89"><span class="toc-number">4.4.</span> <span class="toc-text">提交（git commit）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%9C%E7%A8%8B%EF%BC%88git-remote%EF%BC%89"><span class="toc-number">4.5.</span> <span class="toc-text">远程（git remote）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8E%A8%E9%80%81%EF%BC%88git-push%EF%BC%89"><span class="toc-number">4.6.</span> <span class="toc-text">推送（git push）</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9B%BE%E5%BD%A2%E5%8C%96%E5%B7%A5%E5%85%B7"><span class="toc-number">5.</span> <span class="toc-text">图形化工具</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Github-Desktop"><span class="toc-number">5.1.</span> <span class="toc-text">Github Desktop</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#UGit"><span class="toc-number">5.2.</span> <span class="toc-text">UGit</span></a></li></ol></li></ol></ul></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2025 <a href="/." rel="nofollow">恨别鸟惊心.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/ImZjm/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/ImZjm"> ImZjm</a><br/><a rel="nofollow" target="_blank" href="https://beian.mps.gov.cn/#/query/webSearch?code=43062302000166">湘公网安备43062302000166</a> | <a rel="nofollow" target="_blank" href="https://beian.miit.gov.cn/">湘ICP备2024091703号</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=1.0.0" async></script><link rel="stylesheet" type="text/css" href="/css/search.css?v=1.0.0"><script type="text/javascript" src="/js/search.js?v=1.0.0"></script><script>var search_path = 'search.xml';
+if (search_path.length == 0) {
+  search_path = 'search.xml';
+}
+var path = '/' + search_path;
+searchFunc(path, 'local-search-input', 'local-search-result');
+</script><script type="text/javascript" src="/js/copycode.js?v=1.0.0" successtext="复制成功！"></script><link rel="stylesheet" type="text/css" href="/css/copycode.css?v=1.0.0"><script type="text/javascript" src="/js/toc.js?v=1.0.0"></script><script type="text/javascript" src="/js/codeblock-resizer.js?v=1.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=1.0.0"></script></div></body></html>
