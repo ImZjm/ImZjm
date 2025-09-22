@@ -133,7 +133,7 @@ toc: true   ## 生成目录总开关，需在Front-matter中配置toc: true
 
 info:
   avatar: http://q.qlogo.cn/headimg_dl?dst_uin=3346926171&spec=640&img_type=jpg
-  avatar_link: /blog/about/ ## 点击头像跳转的链接
+  avatar_link: /about/ ## 点击头像跳转的链接
   discription: Life is code, I'am coding.
   outlinkitem:
     - name: envelope
