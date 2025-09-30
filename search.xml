@@ -4,13 +4,21 @@
   
     
     <entry>
-      <title>Hello World</title>
-      <link href="/2025/09/22/hello-world/"/>
-      <url>/2025/09/22/hello-world/</url>
+      <title>申请Github学生包</title>
+      <link href="/2025/09/30/github-student/"/>
+      <url>/2025/09/30/github-student/</url>
       
-        <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>]]></content>
+        <content type="html"><![CDATA[<p>使用edu教育邮箱申请github学生认证</p><p><img src="https://images.ctfassets.net/8aevphvgewt8/DXy5GRJLnrl9zdOI8AwiZ/aee9c14b62bad2338c37445999b70a2e/students__1_.png?w=1440&fm=webp&q=90" alt="Student"></p><span id="more"></span><h1 id="准备部分"><a href="#准备部分" class="headerlink" title="准备部分"></a>准备部分</h1><h2 id="教育邮箱"><a href="#教育邮箱" class="headerlink" title="教育邮箱"></a>教育邮箱</h2><p>需要一个以学校域名结尾的邮箱，即教育邮箱</p><ul><li>在github的Emails配置中绑定教育邮箱<br><img src="https://cdn.jsdelivr.net/gh/ImZjm/ResourceHub/images%2F2025%2F09%2F30%2Fimage-20250930231314612_1759245313.png" alt="绑定邮箱"></li><li>绑定成功后回到主页会出现加入Github Education的大菜单，点击即可开始学生认证流程<br><img src="https://cdn.jsdelivr.net/gh/ImZjm/ResourceHub/images%2F2025%2F09%2F30%2Fimage-20250930232915841_1759246155.png" alt="首页"></li></ul><h2 id="个人信息配置"><a href="#个人信息配置" class="headerlink" title="个人信息配置"></a>个人信息配置</h2><ul><li>修改个人信息的地址为学校的英文名<br><img src="https://cdn.jsdelivr.net/gh/ImZjm/ResourceHub/images%2F2025%2F09%2F30%2Fimage-20250930232205252_1759245739.png" alt="个人信息地址"></li><li>添加一条账单信息，地址填学校英文名<br><img src="https://cdn.jsdelivr.net/gh/ImZjm/ResourceHub/images%2F2025%2F09%2F30%2Fimage-20250930232729061_1759246049.png" alt="账单信息"></li></ul><h2 id="制作学生证"><a href="#制作学生证" class="headerlink" title="制作学生证"></a>制作学生证</h2><p>没错，是制造学生证！<br>你上传自己的学生证，老外看不懂中文，审核会不通过</p><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">### Student Verification Report</span></span><br><span class="line"></span><br><span class="line">Name: San Zhang</span><br><span class="line"></span><br><span class="line">School Name: Wuhan Institute of Design and Sciences</span><br><span class="line"></span><br><span class="line">Student ID: 241234066</span><br><span class="line"></span><br><span class="line">Enrollment Date: 2024.09.01</span><br></pre></td></tr></table></figure><p>随便找个记事本，把上面的信息写进去，放大点拍清晰点即可</p><h1 id="实操部分"><a href="#实操部分" class="headerlink" title="实操部分"></a>实操部分</h1><blockquote><p>[!CAUTION]</p><p><em><strong>从这部分开始，务必关闭任何VPN</strong></em></p></blockquote><p>后面会涉及到拍照上传，可以在手机浏览器中进行以下步骤</p><h2 id="录入信息"><a href="#录入信息" class="headerlink" title="录入信息"></a>录入信息</h2><ul><li>点击Start an application开始进行认证<br><img src="https://cdn.jsdelivr.net/gh/ImZjm/ResourceHub/images%2F2025%2F09%2F30%2Fimage-20250930233436331_1759246476.png" alt="开始"></li><li>在弹出的界面中，选择Student，并输入学校的英文名，随后点击Location shared给予位置权限<br>给予位置后，Continue会亮起<img src="https://cdn.jsdelivr.net/gh/ImZjm/ResourceHub/images%2F2025%2F09%2F30%2Fimage-20250930235008959_1759247408.png" alt="选择学校" style="zoom:45%;"/></li><li>选择Dated school ID - Good，开启摄像头进行拍摄，手机上操作会有反转摄像头的按钮，直接拍摄上面准备的学生证<img src="https://cdn.jsdelivr.net/gh/ImZjm/ResourceHub/images%2F2025%2F09%2F30%2Fimage-20250930234826825_1759247306.png" alt="拍摄学生证" style="zoom:45%;"/></li></ul><h2 id="拍摄内容示例"><a href="#拍摄内容示例" class="headerlink" title="拍摄内容示例"></a>拍摄内容示例</h2><img src="https://cdn.jsdelivr.net/gh/ImZjm/ResourceHub/images%2F2025%2F09%2F30%2Fimage-20250930235408062_1759247648.png" alt="拍摄内容示例" style="zoom:50%;" /><h1 id="认证结果"><a href="#认证结果" class="headerlink" title="认证结果"></a>认证结果</h1><h2 id="认证成功示例"><a href="#认证成功示例" class="headerlink" title="认证成功示例"></a>认证成功示例</h2><p><img src="https://cdn.jsdelivr.net/gh/ImZjm/ResourceHub/images%2F2025%2F09%2F30%2Fimage-20250930235548899_1759247748.png" alt="认证成功"></p><h2 id="认证失败示例"><a href="#认证失败示例" class="headerlink" title="认证失败示例"></a>认证失败示例</h2><p><img src="https://cdn.jsdelivr.net/gh/ImZjm/ResourceHub/images%2F2025%2F09%2F30%2Fimage-20250930235628300_1759247788.png" alt="认证失败"></p>]]></content>
       
       
+      
+        <tags>
+            
+            <tag> 教程 </tag>
+            
+            <tag> 白嫖 </tag>
+            
+        </tags>
       
     </entry>
     
@@ -30,6 +38,19 @@
             <tag> 教程 </tag>
             
         </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Hello World</title>
+      <link href="/2025/04/28/hello-world/"/>
+      <url>/2025/04/28/hello-world/</url>
+      
+        <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>]]></content>
+      
+      
       
     </entry>
     
