@@ -13,6 +13,11 @@ tags: [教程, 白嫖]
 
 # 准备部分
 
+## 账户安全
+
+前往Settings -> Password and authentication中开启双重验证Two-factor authentication
+![双重验证](https://cdn.jsdelivr.net/gh/ImZjm/ResourceHub/images%2F2025%2F12%2F07%2Ff1881fc9-21d2-4b9f-b138-7bf9f110da2e_1765090431.png)
+
 ## 教育邮箱
 
 需要一个以学校域名结尾的邮箱，即教育邮箱
